@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Práctica de evaluación - Chat con Sockets</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Login -->
+    <div id="loginCard" class="card login-card">
+      <h2>Práctica de evaluación usando Sockets de comunicación - Ing. Yayo</h2>
+      <input id="nameInput" type="text" placeholder="Ingresa tu nombre" />
+      <button id="enterBtn" class="btn">Ingresar al chat</button>
+    </div>
+
+    <!-- Chat (oculto hasta login) -->
+    <div id="chatWrap" class="chat-wrap hidden">
+      <div class="header">
+        <h3>Práctica de evaluación 1er. parcial - Ing. Yayo</h3>
+      </div>
+
+      <div class="main">
+        <!-- Panel de descripción (texto) -->
+        <div class="description">
+          <p>
+            Abran varias pestañas o ventanas del navegador e ingresen diferentes nombres. 
+            Ahora podrán chatear entre los usuarios en un entorno web.
+          </p>
+        </div>
+
+        <!-- Chat box -->
+        <div class="chat-panel">
+          <div id="messages" class="messages"></div>
+
+          <div class="send-area">
+            <input id="msgInput" type="text" placeholder="Ingresa un mensaje" />
+            <button id="sendBtn" class="btn">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cliente Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/chat.js"></script>
+</body>
+</html>
