@@ -1,5 +1,5 @@
 // cliente
-const socket = io('http://18.217.239.1:9000');
+const socket = io('http://18.219.95.94:9000');
 
 // elementos
 const loginCard = document.getElementById('loginCard');
