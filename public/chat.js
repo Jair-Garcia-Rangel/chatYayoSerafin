@@ -1,11 +1,10 @@
-// cliente
+// Conectar al servidor
 const socket = io('http://18.219.95.94:9000');
 
-// elementos
+// Elementos del DOM
 const loginCard = document.getElementById('loginCard');
 const nameInput = document.getElementById('nameInput');
 const enterBtn = document.getElementById('enterBtn');
-
 const chatWrap = document.getElementById('chatWrap');
 const messagesEl = document.getElementById('messages');
 const msgInput = document.getElementById('msgInput');
@@ -13,7 +12,7 @@ const sendBtn = document.getElementById('sendBtn');
 
 let myName = null;
 
-// helper para agregar mensaje al DOM
+// Helper para agregar mensaje al DOM
 function appendMessage({ user, text, time }, opts = {}) {
   const div = document.createElement('div');
   if (opts.system) {
@@ -43,13 +42,12 @@ enterBtn.addEventListener('click', () => {
   myName = name;
   socket.emit('join', myName);
 
-  // cambiar vista
   loginCard.classList.add('hidden');
   chatWrap.classList.remove('hidden');
   msgInput.focus();
 });
 
-// enviar mensaje
+// Enviar mensaje
 function sendMessage() {
   const text = msgInput.value.trim();
   if (!text) return;
@@ -62,11 +60,12 @@ msgInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
 
-// recibir mensajes del servidor
+// Recibir mensajes del servidor
 socket.on('chat message', (payload) => {
   appendMessage(payload);
 });
 
+// Mensajes del sistema
 socket.on('system message', (txt) => {
   appendMessage({ user: '', text: txt, time: new Date().toLocaleTimeString() }, { system: true });
 });
