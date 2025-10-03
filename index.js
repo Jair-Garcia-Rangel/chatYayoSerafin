@@ -1,25 +1,31 @@
-var express = require('express');
-var socket = require('socket.io');
-var app = express();
+const express = require('express');
+const socketIO = require('socket.io');
+const app = express();
 
 app.use(express.static('public'));
 
-var server = app.listen(9000, '0.0.0.0', () => {
-    console.log('server on port http://0.0.0.0:9000');
+const server = app.listen(9000, '0.0.0.0', () => {
+    console.log('Server running on http://18.219.95.94:9000');
 });
 
+const io = socketIO(server);
 
-var io = socket(server);
-io.on('connection', function(socket){
-    console.log('hay una conexion', socket.id);
+io.on('connection', (socket) => {
+    console.log('Nueva conexión:', socket.id);
 
-    socket.on('chat', function(data){
-        console.log(data);
-        io.sockets.emit('chat', data);
+    // Escuchar mensajes del cliente
+    socket.on('chat message', (data) => {
+        console.log('Mensaje recibido:', data);
+        // Emitir a todos los clientes
+        io.sockets.emit('chat message', {
+            user: socket.id,
+            text: data,
+            time: new Date().toLocaleTimeString()
+        });
     });
 
-    socket.on('typing', function(data){
+    // Escuchar cuando el usuario escribe
+    socket.on('typing', (data) => {
         socket.broadcast.emit('typing', data);
-   
-      });
+    });
 });
